@@ -11,6 +11,26 @@ import { ChevronDown, ChevronUp } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
+interface Metrics {
+  competitive_advantage: { en: string; pt: string };
+  launch_date: { en: string; pt: string };
+  avg_monthly_revenue: { en: string; pt: string };
+  last_month_revenue: { en: string; pt: string };
+}
+
+interface Solution {
+  id: string;
+  title: { en: string; pt: string };
+  description: { en: string; pt: string };
+  problem: { en: string; pt: string };
+  targetAudience: { en: string; pt: string };
+  growthStrategy: { en: string; pt: string };
+  businessModelDetails: { en: string; pt: string };
+  metrics: Metrics;
+  status: string;
+  businessModel: string;
+}
+
 const solutions = [
   {
     id: "digital-transformation",
@@ -194,7 +214,7 @@ export function SolutionsGrid() {
   const [businessModelFilter, setBusinessModelFilter] = useState("All")
   const [expandedCards, setExpandedCards] = useState<{ [key: string]: boolean }>({})
   const [showRevenueModal, setShowRevenueModal] = useState(false)
-  const [selectedSolution, setSelectedSolution] = useState<any>(null)
+  const [selectedSolution, setSelectedSolution] = useState<Solution | null>(null)
 
   const filteredSolutions = solutions.filter(solution => 
     (statusFilter === "All" || solution.status === statusFilter) &&
@@ -209,7 +229,7 @@ export function SolutionsGrid() {
     }))
   }
 
-  const getMonthlyData = (solution: any) => {
+  const getMonthlyData = (solution: Solution) => {
     // This is example data - you should replace with real data
     return [
       { month: 'Jan', revenue: 0 },
@@ -222,7 +242,7 @@ export function SolutionsGrid() {
   }
 
   return (
-    <section className="container px-4 sm:px-6 py-8">
+    <section className="container px-4 sm:px-6 py-20">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 space-y-4 sm:space-y-0">
         <Select onValueChange={setStatusFilter}>
           <SelectTrigger className="w-full sm:w-[180px]">
