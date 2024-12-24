@@ -33,7 +33,7 @@ interface Solution {
 
 const solutions = [
   {
-    id: "digital-transformation",
+    id: "content-creator-platform",
     title: { en: "Content Creator Platform", pt: "Plataforma para Criadores de Conteúdo" },
     description: {
       en: "Sell online courses and get way better analytics from your users, with a fraction of big players price",
@@ -65,7 +65,7 @@ const solutions = [
     businessModel: "B2B",
   },
   {
-    id: "digital-transformation",
+    id: "tech-business-course",
     title: { en: "Tech for Business People Course", pt: "Curso de Tecnologia para Pessoas de Negócios" },
     description: {
       en: "Create autonomy and confidence in Product Managers for better technical conversations",
@@ -97,7 +97,7 @@ const solutions = [
     businessModel: "B2C/B2B",
   },
   {
-    id: "digital-transformation",
+    id: "web-shopping-list",
     title: { en: "Web Shopping List", pt: "Lista de Compras de Mercado na Web" },
     description: {
       en: "Create a shopping list in seconds, without an app, and share it with your family",
@@ -129,7 +129,7 @@ const solutions = [
     businessModel: "B2C",
   },
   {
-    id: "digital-transformation",
+    id: "getrefer-io",
     title: { en: "getrefer.io", pt: "getrefer.io" },
     description: {
       en: "Create viral referral campaigns for SaaS and ecommerce businesses with powerful analytics",
@@ -161,7 +161,7 @@ const solutions = [
     businessModel: "B2B",
   },
   {
-    id: "digital-transformation",
+    id: "v3-insights",
     title: { en: "V3 Insights", pt: "V3 Insights" },
     description: {
       en: "Advanced video hosting and analytics platform for businesses",
@@ -223,6 +223,7 @@ export function SolutionsGrid() {
 
   const toggleCard = (id: string, e: React.MouseEvent) => {
     e.preventDefault()
+    e.stopPropagation()
     setExpandedCards(prev => ({
       ...prev,
       [id]: !prev[id]
@@ -242,8 +243,8 @@ export function SolutionsGrid() {
   }
 
   return (
-    <section className="container px-4 sm:px-6 py-20">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 space-y-4 sm:space-y-0">
+    <section className="container px-4 sm:px-4 py-2 sm:py-10">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-8 space-y-2 sm:space-y-0">
         <Select onValueChange={setStatusFilter}>
           <SelectTrigger className="w-full sm:w-[180px]">
             <SelectValue placeholder={language === 'en' ? 'Filter by Status' : 'Filtrar por Status'} />
@@ -269,117 +270,132 @@ export function SolutionsGrid() {
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mx-2 sm:mx-0">
         {filteredSolutions.map((solution) => (
-          <Link href={`/solutions/${solution.id}`} key={solution.id}>
-            <Card className="flex flex-col h-full overflow-hidden border border-border/40 bg-black/50 backdrop-blur-sm hover:border-border/80 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
-              <CardHeader className="flex-grow">
-                <div className="flex justify-between items-start mb-2">
-                  <Badge variant="secondary" className={`${statusColors[solution.status as keyof typeof statusColors]} font-medium`}>
-                    {statusTranslations[solution.status as keyof typeof statusTranslations][language]}
-                  </Badge>
-                  <Badge variant="outline">{solution.businessModel}</Badge>
+          <Card 
+            key={solution.id} 
+            className="flex flex-col h-full overflow-hidden border border-border/40 bg-black/50 backdrop-blur-sm hover:border-border/80 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20"
+          >
+            <CardHeader className="flex-grow">
+              <div className="flex justify-between items-start mb-2">
+                <Badge variant="secondary" className={`${statusColors[solution.status as keyof typeof statusColors]} font-medium`}>
+                  {statusTranslations[solution.status as keyof typeof statusTranslations][language]}
+                </Badge>
+                <Badge variant="outline">{solution.businessModel}</Badge>
+              </div>
+              <CardTitle className="text-xl">{solution.title[language]}</CardTitle>
+              <CardDescription>{solution.description[language]}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4">
+                <Button
+                  variant="ghost"
+                  className="bg-gray-900/50 w-full flex items-center justify-between p-2 min-h-[40px]"
+                  onClick={(e) => toggleCard(solution.id, e)}
+                >
+                  <span className="flex-1 text-left">
+                    {language === 'en' ? 'Look at the Strategic Dimensions' : 'Veja as Dimensões Estratégicas'}
+                  </span>
+                  {expandedCards[solution.id] ? (
+                    <ChevronUp className="h-4 w-4 ml-2 flex-shrink-0" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4 ml-2 flex-shrink-0" />
+                  )}
+                </Button>
+
+                <div className={`space-y-4 transition-all duration-300 overflow-hidden ${
+                  expandedCards[solution.id] 
+                    ? 'max-h-[1000px] opacity-100' 
+                    : 'max-h-0 opacity-0'
+                }`}>
+                  <div className="space-y-2">
+                    <h3 className="text-sm font-semibold text-primary/80 uppercase tracking-wide">
+                      {language === 'en' ? 'Problem' : 'Problema'}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {solution.problem[language]}
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="text-sm font-semibold text-primary/80 uppercase tracking-wide">
+                      {language === 'en' ? 'Target Audience' : 'Público Alvo'}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {solution.targetAudience[language]}
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="text-sm font-semibold text-primary/80 uppercase tracking-wide">
+                      {language === 'en' ? 'Growth Strategy' : 'Estratégia de Crescimento'}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {solution.growthStrategy[language]}
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="text-sm font-semibold text-primary/80 uppercase tracking-wide">
+                      {language === 'en' ? 'Business Model' : 'Modelo de Negócios'}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {solution.businessModelDetails[language]}
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="text-sm font-semibold text-primary/80 uppercase tracking-wide">
+                      {language === 'en' ? 'Competitive Advantage' : 'Diferencial Competitivo'}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {solution.metrics.competitive_advantage[language]}
+                    </p>
+                  </div>
                 </div>
-                <CardTitle className="text-xl">{solution.title[language]}</CardTitle>
-                <CardDescription>{solution.description[language]}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid gap-4">
-                  <Button
-                    variant="ghost"
-                    className="w-full flex items-center justify-between p-2 min-h-[40px]"
-                    onClick={(e) => toggleCard(solution.id, e)}
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-3 rounded-lg bg-primary/5 border border-primary/10 hover:border-primary/20 transition-colors flex flex-col justify-between min-h-[80px]">
+                    <h3 className="text-sm font-medium text-primary/80">
+                      {language === 'en' ? 'Launch Date' : 'Data de Lançamento'}
+                    </h3>
+                    <p className="text-lg font-semibold">
+                      {solution.metrics.launch_date[language]}
+                    </p>
+                  </div>
+
+                  <div 
+                    className="p-3 rounded-lg bg-green-500/10 border border-green-500/20 hover:border-green-500/30 transition-colors flex flex-col justify-between min-h-[80px] cursor-pointer"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setSelectedSolution(solution)
+                      setShowRevenueModal(true)
+                    }}
                   >
-                    <span className="flex-1 text-left">
-                      {language === 'en' ? 'Look at the Strategic Dimensions' : 'Veja as Dimensões Estratégicas'}
-                    </span>
-                    {expandedCards[solution.id] ? <ChevronUp className="h-4 w-4 ml-2 flex-shrink-0" /> : <ChevronDown className="h-4 w-4 ml-2 flex-shrink-0" />}
+                    <h3 className="text-sm font-medium text-green-500/80">
+                      {language === 'en' ? 'Monthly Revenue' : 'Receita Mensal'}
+                    </h3>
+                    <p className="text-lg font-semibold text-green-500">
+                      {solution.metrics.avg_monthly_revenue[language]}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter className="mt-auto">
+              <div className="flex justify-between w-full">
+                <Link href={`/solutions/${solution.id}`}>
+                  <Button variant="outline">
+                    {language === 'en' ? 'Learn More' : 'Saiba Mais'}
                   </Button>
-
-                  <div className={`space-y-4 transition-all duration-300 ${expandedCards[solution.id] ? 'block' : 'hidden'}`}>
-                    <div className="space-y-2">
-                      <h3 className="text-sm font-semibold text-primary/80 uppercase tracking-wide">
-                        {language === 'en' ? 'Problem' : 'Problema'}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {solution.problem[language]}
-                      </p>
-                    </div>
-
-                    <div className="space-y-2">
-                      <h3 className="text-sm font-semibold text-primary/80 uppercase tracking-wide">
-                        {language === 'en' ? 'Target Audience' : 'Público Alvo'}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {solution.targetAudience[language]}
-                      </p>
-                    </div>
-
-                    <div className="space-y-2">
-                      <h3 className="text-sm font-semibold text-primary/80 uppercase tracking-wide">
-                        {language === 'en' ? 'Growth Strategy' : 'Estratégia de Crescimento'}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {solution.growthStrategy[language]}
-                      </p>
-                    </div>
-
-                    <div className="space-y-2">
-                      <h3 className="text-sm font-semibold text-primary/80 uppercase tracking-wide">
-                        {language === 'en' ? 'Business Model' : 'Modelo de Negócios'}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {solution.businessModelDetails[language]}
-                      </p>
-                    </div>
-
-                    <div className="space-y-2">
-                      <h3 className="text-sm font-semibold text-primary/80 uppercase tracking-wide">
-                        {language === 'en' ? 'Competitive Advantage' : 'Diferencial Competitivo'}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {solution.metrics.competitive_advantage[language]}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="p-3 rounded-lg bg-primary/5 border border-primary/10 hover:border-primary/20 transition-colors flex flex-col justify-between min-h-[80px]">
-                      <h3 className="text-sm font-medium text-primary/80">
-                        {language === 'en' ? 'Launch Date' : 'Data de Lançamento'}
-                      </h3>
-                      <p className="text-lg font-semibold">
-                        {solution.metrics.launch_date[language]}
-                      </p>
-                    </div>
-
-                    <div 
-                      className="p-3 rounded-lg bg-green-500/10 border border-green-500/20 hover:border-green-500/30 transition-colors flex flex-col justify-between min-h-[80px] cursor-pointer"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        setSelectedSolution(solution)
-                        setShowRevenueModal(true)
-                      }}
-                    >
-                      <h3 className="text-sm font-medium text-green-500/80">
-                        {language === 'en' ? 'Monthly Revenue' : 'Receita Mensal'}
-                      </h3>
-                      <p className="text-lg font-semibold text-green-500">
-                        {solution.metrics.avg_monthly_revenue[language]}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter className="mt-auto">
-                <div className="flex justify-between w-full">
-                  <Button variant="outline">{language === 'en' ? 'Learn More' : 'Saiba Mais'}</Button>
-                  <Button onClick={(e) => {
-                    e.preventDefault();
-                    // Add invest logic here
-                  }}>{language === 'en' ? 'Invest' : 'Investir'}</Button>
-                </div>
-              </CardFooter>
-            </Card>
-          </Link>
+                </Link>
+                <Button onClick={(e) => {
+                  e.preventDefault();
+                  // Add invest logic here
+                }}>
+                  {language === 'en' ? 'Invest' : 'Investir'}
+                </Button>
+              </div>
+            </CardFooter>
+          </Card>
         ))}
       </div>
       <Dialog open={showRevenueModal} onOpenChange={setShowRevenueModal}>
