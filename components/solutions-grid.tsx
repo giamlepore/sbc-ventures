@@ -227,7 +227,7 @@ const solutions = [
         en: "Free, community-driven, and comprehensive curriculum", 
         pt: "Gratuito, guiado pela comunidade e currículo abrangente" 
       },
-      launch_date: { en: "Aug 2024", pt: "Ago 2024" },
+      launch_date: { en: "On hold", pt: "Em espera" },
       avg_monthly_revenue: { en: "$0", pt: "R$0" },
       last_month_revenue: { en: "$0", pt: "R$0" },
     },
