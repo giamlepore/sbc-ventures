@@ -167,7 +167,7 @@ const solutions = [
   },
   {
     id: "v3-insights",
-    logo: "/v3.png",
+    logo: "/v3-in.png",
     title: { en: "V3 Insights", pt: "V3 Insights" },
     description: {
       en: "Advanced video hosting and analytics platform for businesses",
@@ -197,6 +197,42 @@ const solutions = [
     },
     status: "Building",
     businessModel: "B2B",
+  },
+  {
+    id: "the-pm-project",
+    logo: "/the-pm-project.png",
+    title: { en: "The PM Project", pt: "The PM Project" },
+    description: {
+      en: "Open-source learning platform for Product Managers, inspired by The Odin Project",
+      pt: "Plataforma de aprendizado open-source para Product Managers, inspirada no The Odin Project",
+    },
+    problem: {
+      en: "Product Management education is expensive and fragmented, lacking a clear learning path",
+      pt: "Educação em Product Management é cara e fragmentada, sem um caminho claro de aprendizado",
+    },
+    targetAudience: {
+      en: "Aspiring and junior Product Managers",
+      pt: "Aspirantes e Product Managers juniores",
+    },
+    growthStrategy: {
+      en: "Community-driven content and open-source contributions",
+      pt: "Conteúdo gerado pela comunidade e contribuições open-source",
+    },
+    businessModelDetails: {
+      en: "Free platform, monetization through partnerships and job board",
+      pt: "Plataforma gratuita, monetização através de parcerias e vagas de emprego",
+    },
+    metrics: {
+      competitive_advantage: { 
+        en: "Free, community-driven, and comprehensive curriculum", 
+        pt: "Gratuito, guiado pela comunidade e currículo abrangente" 
+      },
+      launch_date: { en: "Aug 2024", pt: "Ago 2024" },
+      avg_monthly_revenue: { en: "$0", pt: "R$0" },
+      last_month_revenue: { en: "$0", pt: "R$0" },
+    },
+    status: "Building",
+    businessModel: "B2C",
   },
 ]
 
