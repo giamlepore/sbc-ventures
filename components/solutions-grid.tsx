@@ -20,6 +20,7 @@ interface Metrics {
 
 interface Solution {
   id: string;
+  logo?: string;
   title: { en: string; pt: string };
   description: { en: string; pt: string };
   problem: { en: string; pt: string };
@@ -34,7 +35,8 @@ interface Solution {
 const solutions = [
   {
     id: "content-creator-platform",
-    title: { en: "Content Creator Platform", pt: "Plataforma para Criadores de Conteúdo" },
+    logo: "/curio-white.png",
+    title: { en: "Curiô - Content Creator Platform", pt: "Curiô - Plataforma para Criadores de Conteúdo" },
     description: {
       en: "Sell online courses and get way better analytics from your users, with a fraction of big players price",
       pt: "Venda cursos online e tenha acesso a melhores dados dos seus usuários, custando uma fração das grandes plataformas",
@@ -66,7 +68,8 @@ const solutions = [
   },
   {
     id: "tech-business-course",
-    title: { en: "Tech for Business People Course", pt: "Curso de Tecnologia para Pessoas de Negócios" },
+    logo: "logo-sbc.png",
+    title: { en: "SBC School - Tech for Business People Course", pt: "SBC School - Curso de Tecnologia para Pessoas de Negócios" },
     description: {
       en: "Create autonomy and confidence in Product Managers for better technical conversations",
       pt: "Criar autonomia e confiança nos Product Managers para melhores conversas técnicas",
@@ -98,7 +101,8 @@ const solutions = [
   },
   {
     id: "web-shopping-list",
-    title: { en: "Web Shopping List", pt: "Lista de Compras de Mercado na Web" },
+    logo: "/market.png",
+    title: { en: "Lembre.me - Web Shopping List", pt: "Lembre.me - Lista de Compras de Mercado na Web" },
     description: {
       en: "Create a shopping list in seconds, without an app, and share it with your family",
       pt: "Permite criar rapidamente uma lista de compras, sem precisar de app, e compartilhar com os familiares",
@@ -130,6 +134,7 @@ const solutions = [
   },
   {
     id: "getrefer-io",
+    logo: "/refer.png",
     title: { en: "getrefer.io", pt: "getrefer.io" },
     description: {
       en: "Create viral referral campaigns for SaaS and ecommerce businesses with powerful analytics",
@@ -162,6 +167,7 @@ const solutions = [
   },
   {
     id: "v3-insights",
+    logo: "/v3.png",
     title: { en: "V3 Insights", pt: "V3 Insights" },
     description: {
       en: "Advanced video hosting and analytics platform for businesses",
@@ -276,10 +282,21 @@ export function SolutionsGrid() {
           >
             <CardHeader className="flex-grow">
               <div className="flex justify-between items-start mb-2">
-                <Badge variant="secondary" className={`${statusColors[solution.status as keyof typeof statusColors]} font-medium`}>
-                  {statusTranslations[solution.status as keyof typeof statusTranslations][language]}
-                </Badge>
-                <Badge variant="outline">{solution.businessModel}</Badge>
+                {solution.logo && (
+                  <div className="w-10 h-10 mb-2">
+                    <img 
+                      src={solution.logo} 
+                      alt={`${solution.title[language]} logo`}
+                      className="w-full h-full object-contain rounded-md"
+                    />
+                  </div>
+                )}
+                <div className="flex gap-2 ml-auto">
+                  <Badge variant="secondary" className={`${statusColors[solution.status as keyof typeof statusColors]} font-medium`}>
+                    {statusTranslations[solution.status as keyof typeof statusTranslations][language]}
+                  </Badge>
+                  <Badge variant="outline">{solution.businessModel}</Badge>
+                </div>
               </div>
               <CardTitle className="text-xl">{solution.title[language]}</CardTitle>
               <CardDescription>{solution.description[language]}</CardDescription>
