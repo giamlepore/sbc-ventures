@@ -234,6 +234,42 @@ const solutions = [
     status: "Building",
     businessModel: "B2C",
   },
+  {
+    id: "habits-app",
+    logo: "/habits.png",
+    title: { en: "37x Habits", pt: "37x Habits" },
+    description: {
+      en: "A simple app to help you build good habits",
+      pt: "Uma aplicação simples para ajudar você a construir bons hábitos",
+    },
+    problem: {
+      en: "People struggle to build good habits",
+      pt: "Pessoas lutam para construir bons hábitos",
+    },
+    targetAudience: {
+      en: "People who want to build good habits",
+      pt: "Pessoas que querem construir bons hábitos",
+    },
+    growthStrategy: {
+      en: "SEO and word of mouth",
+      pt: "SEO e marketing boca a boca",
+    },
+    businessModelDetails: {
+      en: "One-time payment",
+      pt: "Pagamento único",
+    },
+    metrics: {
+      competitive_advantage: { 
+        en: "Simple and effective", 
+        pt: "Simples e eficaz" 
+      },
+      launch_date: { en: "On hold", pt: "Em espera" },
+      avg_monthly_revenue: { en: "$0", pt: "R$0" },
+      last_month_revenue: { en: "$0", pt: "R$0" },
+    },
+    status: "Building",
+    businessModel: "B2C",
+  },
 ]
 
 const statusColors = {
